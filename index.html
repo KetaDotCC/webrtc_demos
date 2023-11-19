@@ -1,0 +1,63 @@
+<!--
+ Copyright 2023 a1147
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+     http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.css" rel="stylesheet">
+    <title>webrtc test</title>
+    <style>
+    </style>
+</head>
+
+<body>
+ 
+    <div class="container" style="display: inline-block;">
+        <p>WebRTC demo test, 以下两个框均为远程视角</p>
+        <p>即：用户1看到用户2摄像头画面，用户2看到用户1摄像头画面</p>
+        <div class="error_box" id="err"></div>
+        <p>用户1视角：用户2摄像头</p>
+        <video autoplay id="local_video" controls></video>
+        <p>用户1视角：用户2摄像头</p>
+        <video autoplay id="remote_video" controls></video>
+        <p></p>
+        <button class="button" id="start">开始通话</button>
+        <script src="index.js" type="text/javascript"></script>
+    </div>
+
+    <script>
+        let start_btn = document.getElementById('start');
+        let stop_btn = document.getElementById('stop');
+        let video = document.getElementById('local_video');
+        let remote_video = document.getElementById('remote_video');
+        window.local = video;
+        window.remote = remote_video;
+        start_btn.onclick = async function() {
+            const local = await createMediaStream(video);
+            const remote = await createMediaStream(remote_video);
+            window.local = local;
+            window.remote = remote;
+            window.local_pc = connectToTurn(local, video, true);
+            window.remote_pc = connectToTurn(remote, remote_video, false);
+        }
+        
+    </script>
+</body>
+
+</html>
