@@ -20,6 +20,11 @@ const sturn_server = 'stun:stun.ketanetwork.cc:3478'
  */
 function log(...params) {
     console.log(params);
+
+    const elem = document.createElement('ul');
+    elem.classList.add('list-group-item');
+    elem.innerText = params.toString();
+    document.getElementById('logs').appendChild(elem);
 }
 
 /**
@@ -60,31 +65,33 @@ function handleIceCandidate(event) {
     const candidate =  event.candidate;
     /**@type {RTCPeerConnection} */
     const conn = event.target;
-    log('found candidate ', candidate);
     if (candidate) {
+        log('found candidate ', candidate.candidate);
         // 发送这个candidate给remote端
         const c = new RTCIceCandidate(candidate);
         /**@type {RTCPeerConnection} */
         let peer;
         if (conn === window.local_pc) {
             peer = window.remote_pc;
-            log('add ice candidate to remote');
+            log('add ice candidate', c.address , ' to remote');
         } else {
             peer = window.local_pc;
-            log('add ice candidate to local');
+            log('add ice candidate', c.address ,' to local');
         }
         peer.addIceCandidate(c).then(() => {
-            log('connect success!');
+            log('connect ', c.address ,' success!');
         }).catch((err) => {
             log('connect ice candidate failed, ', err)
         });
     }
-
-    log(candidate);
 }
 
+/**
+ * 
+ * @param {Event} event 
+ */
 function handleIceConnectionStateChange(event) {
-    
+    log('iceConnectionStateChange:',event.type);
 }
 
 /**
