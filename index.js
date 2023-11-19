@@ -41,6 +41,7 @@ function createMediaStream(localDomElement) {
         }, function(stream) {
             resolve(stream);
         }, function(err) {
+            log('getUserMedia error:',err);
             reject(err);
         });
     });
@@ -91,7 +92,7 @@ function handleIceCandidate(event) {
  * @param {Event} event 
  */
 function handleIceConnectionStateChange(event) {
-    log('iceConnectionStateChange:',event.type);
+    log('iceConnectionStateChange:',event);
 }
 
 /**

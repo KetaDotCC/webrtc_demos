@@ -33,9 +33,6 @@
         <p>即：用户1看到用户2摄像头画面，用户2看到用户1摄像头画面</p>
         <div class="error_box" id="err"></div>
         <img src="frame.excalidraw.png" class="img-fluid" alt="show">
-        <div class="list-group" id="logs">
-            
-        </div>
         <br>
         <p class="alert alert-secondary">用户1视角：用户2传来的摄像头<br><br><video autoplay id="local_video" controls></video>
             <br><br><button class="btn btn-primary"  type="button" id="start">发起通话(用户1)</button>
@@ -45,6 +42,8 @@
         </video>
         <p class="alert alert-secondary">用户2视角：用户1传来的摄像头<br><br><video autoplay id="remote_video" controls></video></p>
         <p></p>
+        <div class="list-group" id="logs">   
+        </div>
         
         <script src="index.js" type="text/javascript"></script>
     </div>
